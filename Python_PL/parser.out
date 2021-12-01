@@ -1,0 +1,151 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NONE
+
+Grammar
+
+Rule 0     S' -> exp
+Rule 1     exp -> crt
+Rule 2     crt -> CREATE OBJECT
+Rule 3     crt -> CREATE OBJECT float float float
+Rule 4     crt -> CREATE OBJECT float float float INT
+Rule 5     float -> INT PERIOD INT
+Rule 6     float -> INT
+Rule 7     list -> term
+Rule 8     list -> list COMMA term
+Rule 9     term -> INT
+Rule 10    term -> STRING_LITERAL
+
+Terminals, with rules where they appear
+
+COMMA                : 8
+CREATE               : 2 3 4
+INT                  : 4 5 5 6 9
+NONE                 : 
+OBJECT               : 2 3 4
+PERIOD               : 5
+STRING_LITERAL       : 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+crt                  : 1
+exp                  : 0
+float                : 3 3 3 4 4 4
+list                 : 8
+term                 : 7 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . exp
+    (1) exp -> . crt
+    (2) crt -> . CREATE OBJECT
+    (3) crt -> . CREATE OBJECT float float float
+    (4) crt -> . CREATE OBJECT float float float INT
+
+    CREATE          shift and go to state 3
+
+    exp                            shift and go to state 1
+    crt                            shift and go to state 2
+
+state 1
+
+    (0) S' -> exp .
+
+
+
+state 2
+
+    (1) exp -> crt .
+
+    $end            reduce using rule 1 (exp -> crt .)
+
+
+state 3
+
+    (2) crt -> CREATE . OBJECT
+    (3) crt -> CREATE . OBJECT float float float
+    (4) crt -> CREATE . OBJECT float float float INT
+
+    OBJECT          shift and go to state 4
+
+
+state 4
+
+    (2) crt -> CREATE OBJECT .
+    (3) crt -> CREATE OBJECT . float float float
+    (4) crt -> CREATE OBJECT . float float float INT
+    (5) float -> . INT PERIOD INT
+    (6) float -> . INT
+
+    $end            reduce using rule 2 (crt -> CREATE OBJECT .)
+    INT             shift and go to state 6
+
+    float                          shift and go to state 5
+
+state 5
+
+    (3) crt -> CREATE OBJECT float . float float
+    (4) crt -> CREATE OBJECT float . float float INT
+    (5) float -> . INT PERIOD INT
+    (6) float -> . INT
+
+    INT             shift and go to state 6
+
+    float                          shift and go to state 7
+
+state 6
+
+    (5) float -> INT . PERIOD INT
+    (6) float -> INT .
+
+    PERIOD          shift and go to state 8
+    INT             reduce using rule 6 (float -> INT .)
+    $end            reduce using rule 6 (float -> INT .)
+
+
+state 7
+
+    (3) crt -> CREATE OBJECT float float . float
+    (4) crt -> CREATE OBJECT float float . float INT
+    (5) float -> . INT PERIOD INT
+    (6) float -> . INT
+
+    INT             shift and go to state 6
+
+    float                          shift and go to state 9
+
+state 8
+
+    (5) float -> INT PERIOD . INT
+
+    INT             shift and go to state 10
+
+
+state 9
+
+    (3) crt -> CREATE OBJECT float float float .
+    (4) crt -> CREATE OBJECT float float float . INT
+
+    $end            reduce using rule 3 (crt -> CREATE OBJECT float float float .)
+    INT             shift and go to state 11
+
+
+state 10
+
+    (5) float -> INT PERIOD INT .
+
+    INT             reduce using rule 5 (float -> INT PERIOD INT .)
+    $end            reduce using rule 5 (float -> INT PERIOD INT .)
+
+
+state 11
+
+    (4) crt -> CREATE OBJECT float float float INT .
+
+    $end            reduce using rule 4 (crt -> CREATE OBJECT float float float INT .)
+

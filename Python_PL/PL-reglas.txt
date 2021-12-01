@@ -1,0 +1,14 @@
+Crear un plano
+crear un vehiculo({pos}, {modelo})
+crear casa ({pos}, {modelo})
+crear objetos ({pos})
+
+reglas
+create plane
+create vehicle coordinates coordinates coordinates model
+create house coordinates coordinates coordinates model
+create objects coordinates coordinates coordinates name
+create
+
+verifique si el text existe if not exists
+append en la linea
